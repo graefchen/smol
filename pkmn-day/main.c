@@ -17,11 +17,11 @@ short getDayTime(struct tm *t) {
 
 int main(void) {
     time_t now = time(NULL);
-    struct tm *t;
-    localtime_s(t, &now);
+    struct tm time;
+    localtime_s(&time, &now);
     char* seasons[4] = {"spring", "summer", "autumn", "winter"};
     char* daytime[4] = {"night", "morning", "day", "evening"};
 
-    printf("%s, %s-time\n", seasons[getSeason(t)], daytime[getDayTime(t)]);
+    printf("%s, %s\n", seasons[getSeason(&time)], daytime[getDayTime(&time)]);
     return 0;
 }

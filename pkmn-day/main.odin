@@ -1,4 +1,4 @@
-package d
+package main
 
 import "core:time"
 import "core:fmt"
@@ -20,12 +20,12 @@ getDayTime :: proc(season: int, hour: int) -> (daytime: u8) {
 main :: proc() {
 	now := time.now()
 	month := time.month(now)
-	hour, min, sec := time.clock_from_time(now)
+	hour, _, _ := time.clock_from_time(now)
 
 	seasons:= []string{"spring", "summer", "autumn", "winter"};
 	daytime:= []string{"night", "morning", "day", "evening"};
 
-	fmt.printf("%s, %s-time\n",
+	fmt.printf("%s, %s\n",
 		seasons[getSeason(int(month))],
 		daytime[getDayTime(getSeason(int(month)), hour)]
 	);
