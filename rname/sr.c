@@ -1,3 +1,4 @@
+/* sr, for Simple Random */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,6 +36,7 @@ void generate(int num) {
 
 typedef struct {
   int len;
+  int help;
   // TODO: Maybe add some different modes.
 } Args;
 
@@ -42,23 +44,30 @@ void parse(Args *args, int argc, char **argv) {
   // start with 1 to skip name
   for (int i = 1; i < argc; i++) {
     char *arg = argv[i];
-    if (STRMATCH(arg, "-n")) {
+    if (STRMATCH(arg, "-h")) {
+      args->help = 1;
+      return;
+    }
+    else if (STRMATCH(arg, "-n")) {
       if (argc < i + 1) {
         printf("Error: Missing number.\n");
       }
       args->len = atoi(argv[i + 1]);
       i++;
     }
-    // last
-    else {
-      printf("Unknown argument: \"%s\"\n", argv[i]);
-    }
+    // ignore everything else (should be fine)
   }
 }
 
 int main(int argc, char **argv) {
-  Args args = {6};
+  Args args = {6, 0};
   parse(&args, argc, argv);
+  if (args.help) {
+    printf("small random string generator of [a-zA-Z0-9]\nUsage sc: "
+           "[options]\n  Options:\n  -h      print this message\n"
+           "  -n num  set the random String to lenght of n\n");
+    exit(1);
+  }
   generate(args.len);
   return 0;
 }
