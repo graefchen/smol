@@ -22,11 +22,11 @@ main :: proc() {
 	month := time.month(now)
 	hour, _, _ := time.clock_from_time(now)
 
-	seasons:= []string{"spring", "summer", "autumn", "winter"};
-	daytime:= []string{"night", "morning", "day", "evening"};
+	seasons := []string{"spring", "summer", "autumn", "winter"}
+	daytime := []string{"night", "morning", "day", "evening"}
 
 	fmt.printf("%s, %s\n",
 		seasons[getSeason(int(month))],
 		daytime[getDayTime(getSeason(int(month)), hour)]
-	);
+	)
 }
