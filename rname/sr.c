@@ -22,10 +22,10 @@ void generate(int num) {
     t[i] = rand();
   }
 
-  char *ptr = (char *)malloc(num);
-  ptr[num] = '\0';
+  char *ptr = (char *)malloc(num + 1);
+  ptr[num + 1] = '\0';
 
-  for (int i = 0; i < num - 1; i++) {
+  for (int i = 0; i < num; i++) {
     int r = t[rand() % MAX];
     ptr[i] = T[r % SIZE(T)];
   }
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
   parse(&args, argc, argv);
   if (args.help) {
     printf("small random string generator of [a-zA-Z0-9]\nUsage sc: "
-           "[options]\n  Options:\n  -h      print this message\n"
+           "[options]\nOptions:\n  -h      print this message\n"
            "  -n num  set the random String to lenght of n\n");
     exit(1);
   }
