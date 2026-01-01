@@ -14,9 +14,3 @@ odin build pkmn-day/ -o:aggressive -sanitize:address
 ```bash
 tcc -ffunction-sections -fdata-sections rname/sr.c
 ```
-
-# tsuyu
-
-```bash
-tcc -ffunction-sections -fdata-sections tsuyu/main.c
-```
