@@ -3,36 +3,187 @@
 #include <string.h>
 #include <time.h>
 
-// TODO: Add missing mcroseasons.
+enum month {
+  January = 0,
+  February,
+  March,
+  April,
+  May,
+  June,
+  July,
+  August,
+  September,
+  October,
+  November,
+  December
+};
+
+enum season {
+  Spring = 0,
+  Summer,
+  Fall,
+  Winter
+};
 
 int getSeason(struct tm *time) {
   int month = time->tm_mon;
   int day = time->tm_mday;
   switch (month) {
-  case 0:
-    return 3;
-  case 1:
-    return day < 5 ? 3 : 0;
-  case 2:
-    return 0;
-  case 3:
-    return 0;
-  case 4:
-    return day < 7 ? 0 : 1;
-  case 5:
-    return 1;
-  case 6:
-    return 1;
-  case 7:
-    return day < 9 ? 1 : 2;
-  case 8:
-    return 2;
-  case 9:
-    return 2;
-  case 10:
-    return day < 8 ? 2 : 3;
-  case 11:
-    return 3;
+  case January:
+    return Winter;
+  case February:
+    return day < 5 ? Winter : Spring;
+  case March:
+    return Spring;
+  case April:
+    return Spring;
+  case May:
+    return day < 7 ? Spring : Summer;
+  case June:
+    return Summer;
+  case July:
+    return Summer;
+  case August:
+    return day < 9 ? Summer : Fall;
+  case September:
+    return Fall;
+  case October:
+    return Fall;
+  case November:
+    return day < 8 ? Fall : Winter;
+  case December:
+    return Winter;
+  default:
+    return -1; // unreachable
+  }
+}
+
+enum sekki {
+  Risshun = 0,
+  Usui,
+  Keichitsu,
+  Shunbun ,
+  Seimei,
+  Kokuu,
+  Rikka,
+  Shooman,
+  Booshu,
+  Geshi,
+  Shoosho,
+  Taisho,
+  Risshuu,
+  Shosho,
+  Hakuro,
+  Shuubun,
+  Kanro,
+  Sookoo,
+  Rittoo,
+  Shoosetsu,
+  Taisetsu,
+  Tooji,
+  Shookan,
+  Daikan
+};
+
+// A very complicated way to get the seasons, but anyway it will be fine.
+int getSolarSeason(struct tm *time) {
+  int month = time->tm_mon;
+  int day = time->tm_mday;
+  switch (month) {
+  case January: {
+    if (day < 5)
+      return Tooji;
+    else if (day < 20)
+      return Shookan;
+    else
+      return Daikan;
+  }
+  case February: {
+    if (day < 4)
+      return Daikan;
+    else if (day < 19)
+      return Risshun;
+    else
+      return Usui;
+  }
+  case March: {
+    if (day < 5)
+      return Usui;
+    else if (day < 21)
+      return Keichitsu;
+    else
+      return Shunbun;
+  }
+  case April: {
+    if (day < 5)
+      return Shunbun;
+    else if (day < 20)
+      return Seimei;
+    else
+     return Kokuu;
+  }
+  case May: {
+    if (day < 4)
+      return Kokuu;
+    else if (day < 21)
+      return Rikka;
+    else
+      return Shooman;
+  }
+  case June: {
+    if (day < 6)
+      return Shooman;
+    else if (day < 21)
+      return Booshu;
+    else
+     return Geshi;
+  }
+  case July: {
+    if (day < 7)
+      return Geshi;
+    else if (day < 23)
+      return Shoosho;
+    else
+      return Taisho;
+  }
+  case August: {
+    if (day < 8)
+      return Taisho;
+    else if (day < 23)
+      return Risshuu;
+    else
+      return Shosho;
+  }
+  case September: {
+    if (day < 8)
+      return Shosho;
+    else if (day < 23)
+      return Shuubun;
+  }
+  case October: {
+    if (day < 8)
+      return Shuubun;
+    else if (day < 23)
+      return Kanro;
+    else
+      return Sookoo;
+  }
+  case November: {
+    if (day < 7)
+      return Sookoo;
+    else if (day < 22)
+      return Rittoo;
+    else
+     return Shoosetsu;
+  }
+  case December: {
+    if (day < 7)
+      return Shoosetsu;
+    else if (day < 22)
+      return Taisetsu;
+    else
+      return Tooji;
+  }
   default:
     return -1; // unreachable
   }
@@ -126,15 +277,15 @@ bool parse(Args *args, int argc, char **argv) {
 }
 
 void usage() {
-  printf("tsuyu, print the current season of the japanese calender\n"
+  printf("tsuyu, get the current season of the japanese calender\n"
          "Usage: tsuyu [options]\n\n"
          "options:\n"
-         "  -e, --english       Print the english name\n"
-         "  -j, --japanese      Print the japanese name\n"
-         "  -r, --romanisation  Print the romanisation\n"
-         "  -s, --solar         Use the solar term\n"
-         "  -m, --microseason   Use the microseason\n"
-         "  -h, --help          The help message\n");
+         "  -e, --english       print the english name\n"
+         "  -j, --japanese      print the japanese name\n"
+         "  -r, --romanisation  print the romanisation\n"
+         "  -s, --solar         use the solar term\n"
+         "  -m, --microseason   use the microseason\n"
+         "  -h, --help          the help message\n");
 }
 
 // https://en.wikipedia.org/wiki/Japanese_calendar
@@ -154,8 +305,9 @@ int main(int argc, char **argv) {
   localtime_s(&time, &now);
 
   if (arg.solar) {
-    int season = (time.tm_yday - 40) / 15;
-    if (season == -1) {
+    int season = getSolarSeason(&time);
+
+    if (season < 0) {
       printf("Something went very wrong.\n");
       return 1;
     }
@@ -185,16 +337,17 @@ int main(int argc, char **argv) {
       printf("  %s", eseasons[season]);
     }
     if (arg.japanese) {
-      printf("  %s", jseasons[season]);
+      printf("  %s", rseasons[season]);
     }
     if (arg.romanisation) {
-      printf("  %s", rseasons[season]);
+      printf("  %s", jseasons[season]);
     }
     printf("\n");
 
   } else {
     int season = getSeason(&time);
-    if (season == -1) {
+
+    if (season < 0) {
       printf("Something went very wrong.\n");
       return 1;
     }

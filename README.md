@@ -17,6 +17,8 @@ tcc -ffunction-sections -fdata-sections rname/sr.c
 
 # tsuyu
 
+ref: https://en.wikipedia.org/wiki/Japanese_calendar
+
 ```bash
 tcc -ffunction-sections -fdata-sections tsuyu/main.c
 ```
