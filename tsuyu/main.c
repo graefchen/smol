@@ -62,7 +62,7 @@ enum sekki {
   Risshun = 0,
   Usui,
   Keichitsu,
-  Shunbun ,
+  Shunbun,
   Seimei,
   Kokuu,
   Rikka,
