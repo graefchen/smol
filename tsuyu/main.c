@@ -18,12 +18,7 @@ enum month {
   December
 };
 
-enum season {
-  Spring = 0,
-  Summer,
-  Fall,
-  Winter
-};
+enum season { Spring = 0, Summer, Fall, Winter };
 
 int getSeason(struct tm *time) {
   int month = time->tm_mon;
@@ -120,7 +115,7 @@ int getSolarSeason(struct tm *time) {
     else if (day < 20)
       return Seimei;
     else
-     return Kokuu;
+      return Kokuu;
   }
   case May: {
     if (day < 4)
@@ -136,7 +131,7 @@ int getSolarSeason(struct tm *time) {
     else if (day < 21)
       return Booshu;
     else
-     return Geshi;
+      return Geshi;
   }
   case July: {
     if (day < 7)
@@ -174,7 +169,7 @@ int getSolarSeason(struct tm *time) {
     else if (day < 22)
       return Rittoo;
     else
-     return Shoosetsu;
+      return Shoosetsu;
   }
   case December: {
     if (day < 7)
@@ -324,7 +319,7 @@ int main(int argc, char **argv) {
         "寒露", "立冬", "小雪", "小雪",  "大雪", "冬至", "小寒", "大寒",
     };
     char *rseasons[24] = {
-        "Risshun", "Usui",     "Keichitsu", "Shunbun ", "Seimei", "Kokuu",
+        "Risshun", "Usui",     "Keichitsu", "Shunbun ", "Seimei", "Kokū",
         "Rikka",   "Shōman",   "Bōshu",     "Geshi",    "Shōsho", "Taisho",
         "Risshū",  "Shosho",   "Hakuro",    "Shūbun",   "Kanro",  "Sōkō",
         "Rittō",   "Shōsetsu", "Taisetsu",  "Tōji",     "Shōkan", "Daikan",

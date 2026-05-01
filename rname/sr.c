@@ -15,18 +15,13 @@ char T[] = {'S', 'e', 'B', 'w', 'm', 'j', 'X', 't', 'Y', 'f', 'R', '7', 'I',
             'W', 'k', 's', 'l', 'i', 'G', 'q', 'N', 'd', '9'};
 
 void generate(int num) {
-  int t[MAX];
   srand(time(NULL));
-
-  for (int i = 0; i < SIZE(t); i++) {
-    t[i] = rand();
-  }
 
   char *ptr = (char *)malloc(num + 1);
   ptr[num + 1] = '\0';
 
   for (int i = 0; i < num; i++) {
-    int r = t[rand() % MAX];
+    int r = rand() % MAX;
     ptr[i] = T[r % SIZE(T)];
   }
 
@@ -63,7 +58,7 @@ int main(int argc, char **argv) {
   Args args = {6, 0};
   parse(&args, argc, argv);
   if (args.help) {
-    printf("small random string generator of [a-zA-Z0-9]\nUsage sc: "
+    printf("small random string generator of [a-zA-Z0-9]\nUsage sr: "
            "[options]\nOptions:\n  -h      print this message\n"
            "  -n num  set the random String to lenght of n\n");
     exit(1);
