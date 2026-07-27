@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
   if (args.help) {
     printf("small random string generator of [a-zA-Z0-9]\nUsage sr: "
            "[options]\nOptions:\n  -h      print this message\n"
-           "  -n num  set the random String to lenght of n\n");
+           "  -n num  set the random String to length of n\n");
     exit(1);
   }
   generate(args.len);

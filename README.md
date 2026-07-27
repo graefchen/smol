@@ -29,10 +29,16 @@ rotate 13
 tcc -ffunction-sections -fdata-sections rot/a.c
 ```
 
-## sc
+## secret
+
+A little recreational program to encrypt/decrypt data.
+
+> [!DANGER]
+> Do NOT use this for real security, this is intended for recreational
+> purpose only!
 
 ```bash
-tcc -ffunction-sections -fdata-sections sc/g.c -o sg.exe
+tcc -ffunction-sections -fdata-sections secret/generate.c -o sg.exe
 ```
 
 # tsuyu
